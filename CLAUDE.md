@@ -18,3 +18,8 @@
 - `npm run dev` - Start development server
 - `npm run build` - Production build
 - `npx supabase gen types typescript --project-id YOUR_ID` - Update DB types
+
+## Session Start Instructions
+At the beginning of every session, read `CHANGELOG.md` to get up to speed on the 
+project history, recent changes, and architectural decisions made so far. Use this 
+as context before making any suggestions or changes.
