@@ -1,32 +1,24 @@
 import Hero from '@/components/Hero'
+import About from '@/components/About'
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-background">
       <Hero />
 
-      <section id="about" className="border-b border-border py-20">
-        <div className="mx-auto max-w-5xl px-6">
-          <h2 className="text-4xl font-bold text-foreground">About</h2>
-          <p className="mt-3 text-muted-foreground">About section placeholder</p>
-        </div>
-      </section>
+      <About />
 
       <section id="experience" className="border-b border-border py-20">
         <div className="mx-auto max-w-5xl px-6">
           <h2 className="text-4xl font-bold text-foreground">Experience</h2>
-          <p className="mt-3 text-muted-foreground">
-            Experience section placeholder
-          </p>
+          <p className="mt-3 text-muted-foreground">Experience section placeholder</p>
         </div>
       </section>
 
       <section id="projects" className="border-b border-border py-20">
         <div className="mx-auto max-w-5xl px-6">
           <h2 className="text-4xl font-bold text-foreground">Projects</h2>
-          <p className="mt-3 text-muted-foreground">
-            Projects section placeholder
-          </p>
+          <p className="mt-3 text-muted-foreground">Projects section placeholder</p>
         </div>
       </section>
 

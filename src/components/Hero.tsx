@@ -30,14 +30,14 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-[calc(100vh-4rem)] items-center justify-center overflow-hidden bg-slate-950 px-6 py-32"
+      className="relative flex min-h-[calc(100vh-4rem)] items-center justify-center overflow-hidden bg-background px-6 py-32"
     >
-      {/* Violet/blue ambient glow */}
+      {/* Ambient primary glow */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 flex items-center justify-center"
       >
-        <div className="h-[600px] w-[900px] rounded-full bg-violet-600/25 blur-[140px]" />
+        <div className="h-[500px] w-[800px] rounded-full bg-primary/8 blur-[160px]" />
       </div>
 
       {/* Foreground content */}
@@ -55,20 +55,18 @@ export default function Hero() {
         {/* Headline */}
         <motion.h1
           variants={item}
-          className="text-5xl font-bold tracking-tight text-white md:text-7xl"
+          className="text-5xl font-bold tracking-tight text-foreground md:text-7xl"
         >
           Hi, I&apos;m{' '}
-          <span className="bg-gradient-to-r from-violet-400 to-blue-400 bg-clip-text text-transparent">
-            Chad Baker
-          </span>
+          <span className="text-primary">Chad Baker</span>
         </motion.h1>
 
         {/* Sub-headline */}
         <motion.p
           variants={item}
-          className="max-w-xl text-lg leading-relaxed text-slate-400"
+          className="max-w-xl text-lg leading-relaxed text-muted-foreground"
         >
-          Senior Software Engineer 
+          Senior Software Engineer
         </motion.p>
 
         {/* CTA buttons */}
@@ -78,7 +76,7 @@ export default function Hero() {
         >
           <Button
             onClick={handleCopy}
-            className="gap-2 bg-violet-600 text-white hover:bg-violet-700"
+            className="gap-2 bg-primary font-semibold text-primary-foreground hover:bg-primary/85"
           >
             {copied ? (
               <Check className="h-4 w-4" />
@@ -88,7 +86,11 @@ export default function Hero() {
             {copied ? 'Copied!' : 'Copy Email'}
           </Button>
 
-          <Button variant="secondary" asChild className="gap-2">
+          <Button
+            variant="outline"
+            asChild
+            className="gap-2 border-muted-foreground/40 text-foreground hover:bg-muted hover:text-foreground"
+          >
             <a href="/cv.pdf" download>
               <Download className="h-4 w-4" />
               Download CV
@@ -96,6 +98,12 @@ export default function Hero() {
           </Button>
         </motion.div>
       </motion.div>
+
+      {/* Bottom fade — blends seamlessly into the next section */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background"
+      />
     </section>
   )
 }

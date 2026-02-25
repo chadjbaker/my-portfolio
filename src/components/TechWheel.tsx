@@ -111,10 +111,10 @@ function TechIcon({ tech, rotation }: TechIconProps) {
       className="flex flex-col items-center"
     >
       {/* Glassmorphism circle wrapper */}
-      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 p-2 backdrop-blur-sm">
-        <Icon className="h-full w-full text-white" />
+      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-foreground/10 p-2 backdrop-blur-sm">
+        <Icon className="h-full w-full text-foreground" />
       </div>
-      <p className="mt-1 text-center text-[10px] font-medium text-slate-500">
+      <p className="mt-1 text-center text-[10px] font-medium text-muted-foreground">
         {label}
       </p>
     </motion.div>
