@@ -18,20 +18,14 @@ const fadeUp: Variants = {
 const SKILLS = [
   {
     category: 'Frontend',
-    accent: 'bg-primary/10 text-primary border-primary/25',
-    label: 'text-primary/60',
     items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
   },
   {
     category: 'Backend',
-    accent: 'bg-muted-foreground/10 text-muted-foreground border-muted-foreground/30',
-    label: 'text-muted-foreground/70',
     items: ['Node.js', 'Supabase', 'PostgreSQL', 'REST APIs', 'Auth (SSR)'],
   },
   {
     category: 'Tools',
-    accent: 'bg-foreground/10 text-foreground border-foreground/15',
-    label: 'text-foreground/40',
     items: ['Git', 'Docker', 'Vercel', 'GitHub Actions', 'VS Code'],
   },
 ] as const
@@ -84,16 +78,16 @@ export default function About() {
 
         {/* ── Right column: skill badges ── */}
         <motion.div variants={stagger} className="flex flex-col justify-center gap-8">
-          {SKILLS.map(({ category, accent, label, items }) => (
-            <motion.div key={category} variants={fadeUp} className="flex flex-col gap-3">
-              <h3 className={`text-xs font-semibold uppercase tracking-widest ${label}`}>
+          {SKILLS.map(({ category, items }) => (
+            <motion.div key={category} variants={fadeUp} className="flex flex-col">
+              <h3 className="mb-4 text-sm font-semibold uppercase tracking-widest text-accent">
                 {category}
               </h3>
               <div className="flex flex-wrap gap-2">
                 {items.map((skill) => (
                   <span
                     key={skill}
-                    className={`rounded-full border px-3 py-1 text-xs font-medium ${accent}`}
+                    className="rounded-full border border-secondary/20 bg-secondary/10 px-3 py-1 text-xs font-medium text-foreground"
                   >
                     {skill}
                   </span>

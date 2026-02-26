@@ -53,13 +53,19 @@ export default function Hero() {
         </motion.div>
 
         {/* Headline */}
-        <motion.h1
-          variants={item}
-          className="text-5xl font-bold tracking-tight text-foreground md:text-7xl"
-        >
-          Hi, I&apos;m{' '}
-          <span className="text-primary">Chad Baker</span>
-        </motion.h1>
+        <motion.div variants={item} className="relative">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 hidden items-center justify-center md:flex"
+          >
+            <div className="h-24 w-[480px] rounded-full bg-accent/20 blur-[120px]" />
+          </div>
+          <h1 className="relative text-5xl font-extrabold tracking-tighter md:text-7xl">
+            <span className="inline-block bg-gradient-to-br from-foreground via-foreground to-accent bg-clip-text text-transparent">
+              Hi, I&apos;m Chad Baker
+            </span>
+          </h1>
+        </motion.div>
 
         {/* Sub-headline */}
         <motion.p
