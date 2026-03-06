@@ -3,6 +3,25 @@
 All notable changes to this project will be documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased] – 2026-02-26
+
+### Added
+- **Add `Experience` section as an async Server Component** — Created `src/components/Experience.tsx` as a pure Server Component that fetches all rows from the Supabase `experience` table (ordered `start_date DESC`) using the SSR client from `src/utils/supabase/server.ts`. Renders a vertical timeline: a `bg-secondary/30` 1px path line, per-entry node dots (`bg-accent ring-4 ring-accent/20` for the current role, hollow `border-muted-foreground/40` for past roles), `company_name` as an `<h3>` in `text-foreground`, `role_title` as an `<h4>` in `text-accent`, date range, description bullet points prefixed with an accent `▸`, and `skills_used` rendered as `bg-secondary/10 text-foreground` pill badges. The current role card receives a `shadow-[0_0_20px_rgba(243,193,65,0.15)]` gold ambient glow. Returns `null` when the table is empty so no broken section appears on the page.
+  *Why:* Experience data is read-only at render time and requires no client interactivity, making it an ideal async Server Component — data is fetched on the server with the SSR Supabase client, keeping credentials and query logic out of the browser bundle and following the App Router pattern of pushing client boundaries to leaf nodes only.
+
+### Changed
+- **Replace Experience and Projects placeholders in `page.tsx`** — Removed the hardcoded `<section>` scaffolding for `#experience` and `#projects` and imported the real `<Experience />` and `<Projects />` Server Components in their place.
+  *Why:* `page.tsx` is a Server Component; importing async Server Components directly (no `<Suspense>` wrapper needed for a simple sequential render) keeps the root page thin and delegates all data-fetching responsibility to the individual section components, matching the App Router co-location pattern.
+
+- **Fix `About.tsx` skill-category headers — `text-accent-foreground` → `text-accent`** — Category labels (`Frontend`, `Backend`, `Tools`) were rendered with `text-accent-foreground` which resolves to the dark background colour `#2B3C49`, making them invisible. Changed to `text-accent` (gold `#F3C141`), bumped size from `text-xs` to `text-sm`, and replaced the parent `gap-3` with an explicit `mb-4` on each heading for consistent spacing between label and badge row.
+  *Why:* In the Shadcn token model `--accent-foreground` is the *contrasting* text intended for use on top of an accent-coloured background surface — not for standalone coloured text. `--accent` is the correct token when applying the brand gold as a foreground colour directly on the page background.
+
+- **Update `Hero.tsx` headline with gradient text treatment** — Replaced the flat `text-foreground` `<h1>` with a `bg-gradient-to-br from-foreground via-foreground to-accent bg-clip-text text-transparent` gradient, wrapped in a `<motion.div>` that adds a blurred `bg-accent/20` glow orb behind the text on `md` and above.
+  *Why:* Gradient text is applied purely with Tailwind utility classes and CSS `background-clip`, requiring no additional JavaScript or runtime cost; wrapping in the existing Framer Motion `item` variant keeps it inside the stagger sequence already established in `Hero.tsx` without introducing a new animation layer.
+
+- **Add Unsplash image hostname to `next.config.ts` remotePatterns** — Added `{ protocol: 'https', hostname: 'images.unsplash.com' }` alongside the existing Supabase storage pattern.
+  *Why:* Next.js `<Image />` requires every external hostname to be allowlisted in `remotePatterns`; adding Unsplash here enables optimised image delivery (automatic WebP conversion, lazy loading, responsive `srcset`) for any Unsplash assets used in the Projects section without weakening the allowlist to a wildcard.
+
 ## [Unreleased] – 2026-02-25
 
 ### Added

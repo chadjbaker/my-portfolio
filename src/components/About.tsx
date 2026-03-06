@@ -18,15 +18,15 @@ const fadeUp: Variants = {
 const SKILLS = [
   {
     category: 'Frontend',
-    items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
+    items: ['React.js', 'Next.js', 'TypeScript', 'Tailwind CSS'],
   },
   {
     category: 'Backend',
-    items: ['Node.js', 'Supabase', 'PostgreSQL', 'REST APIs', 'Auth (SSR)'],
+    items: ['Node.js', 'Supabase', 'PostgreSQL', 'REST APIs'],
   },
   {
     category: 'Tools',
-    items: ['Git', 'Docker', 'Vercel', 'GitHub Actions', 'VS Code'],
+    items: ['Git', 'Docker', 'Vercel', 'GitHub Actions', 'VS Code', "Claude Code"],
   },
 ] as const
 

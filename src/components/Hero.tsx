@@ -1,12 +1,8 @@
 'use client'
 
-import { useState } from 'react'
 import { motion, type Variants } from 'framer-motion'
-import { Copy, Check, Download } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import TechWheel from '@/components/TechWheel'
-
-const EMAIL = 'chadrickjbaker@yahoo.com'
+import SocialDock from '@/components/SocialDock'
 
 const container: Variants = {
   hidden: {},
@@ -19,14 +15,6 @@ const item: Variants = {
 }
 
 export default function Hero() {
-  const [copied, setCopied] = useState(false)
-
-  async function handleCopy() {
-    await navigator.clipboard.writeText(EMAIL)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
-
   return (
     <section
       id="hero"
@@ -62,7 +50,7 @@ export default function Hero() {
           </div>
           <h1 className="relative text-5xl font-extrabold tracking-tighter md:text-7xl">
             <span className="inline-block bg-gradient-to-br from-foreground via-foreground to-accent bg-clip-text text-transparent">
-              Hi, I&apos;m Chad Baker
+              Chad Baker
             </span>
           </h1>
         </motion.div>
@@ -75,33 +63,9 @@ export default function Hero() {
           Senior Software Engineer
         </motion.p>
 
-        {/* CTA buttons */}
-        <motion.div
-          variants={item}
-          className="flex flex-wrap items-center justify-center gap-3"
-        >
-          <Button
-            onClick={handleCopy}
-            className="gap-2 bg-primary font-semibold text-primary-foreground hover:bg-primary/85"
-          >
-            {copied ? (
-              <Check className="h-4 w-4" />
-            ) : (
-              <Copy className="h-4 w-4" />
-            )}
-            {copied ? 'Copied!' : 'Copy Email'}
-          </Button>
-
-          <Button
-            variant="outline"
-            asChild
-            className="gap-2 border-muted-foreground/40 text-foreground hover:bg-muted hover:text-foreground"
-          >
-            <a href="/cv.pdf" download>
-              <Download className="h-4 w-4" />
-              Download CV
-            </a>
-          </Button>
+        {/* Social links */}
+        <motion.div variants={item}>
+          <SocialDock />
         </motion.div>
       </motion.div>
 
