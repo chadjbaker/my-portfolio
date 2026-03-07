@@ -2,6 +2,7 @@
 
 import { useRef } from 'react'
 import { motion, useInView, type Variants } from 'framer-motion'
+import TechStack from '@/components/TechStack'
 
 // ─── animation variants ────────────────────────────────────────────────────
 const stagger: Variants = {
@@ -13,22 +14,6 @@ const fadeUp: Variants = {
   hidden: { opacity: 0, y: 28 },
   show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: 'easeOut' } },
 }
-
-// ─── skill data ────────────────────────────────────────────────────────────
-const SKILLS = [
-  {
-    category: 'Frontend',
-    items: ['React.js', 'Next.js', 'TypeScript', 'Tailwind CSS'],
-  },
-  {
-    category: 'Backend',
-    items: ['Node.js', 'Supabase', 'PostgreSQL', 'REST APIs'],
-  },
-  {
-    category: 'Tools',
-    items: ['Git', 'Docker', 'Vercel', 'GitHub Actions', 'VS Code', "Claude Code"],
-  },
-] as const
 
 // ─── component ─────────────────────────────────────────────────────────────
 export default function About() {
@@ -76,25 +61,9 @@ export default function About() {
           </p>
         </motion.div>
 
-        {/* ── Right column: skill badges ── */}
-        <motion.div variants={stagger} className="flex flex-col justify-center gap-8">
-          {SKILLS.map(({ category, items }) => (
-            <motion.div key={category} variants={fadeUp} className="flex flex-col">
-              <h3 className="mb-4 text-sm font-semibold uppercase tracking-widest text-accent">
-                {category}
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {items.map((skill) => (
-                  <span
-                    key={skill}
-                    className="rounded-full border border-secondary/20 bg-secondary/10 px-3 py-1 text-xs font-medium text-foreground"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-          ))}
+        {/* ── Right column: tech icon grid ── */}
+        <motion.div variants={fadeUp} className="flex flex-col justify-center gap-4">
+          <TechStack animate={isInView} />
         </motion.div>
       </motion.div>
     </section>

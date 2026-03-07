@@ -3,6 +3,25 @@
 All notable changes to this project will be documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased] – 2026-03-06
+
+### Added
+- **Add `Contact` section with Server Action and form validation** — Created `src/app/actions/contact.ts` as a Next.js Server Action that receives form data, validates required fields, and inserts a row into the Supabase `contact_messages` table via the SSR client. Created `src/components/Contact.tsx` as a `'use client'` component using `useActionState` to bind the action, display inline field errors, and show a success state after submission. Replaced the hardcoded `<section id="contact">` placeholder in `page.tsx` with `<Contact />`.
+  *Why:* Mutations are handled by a Server Action (not an API route), which is the App Router's recommended pattern — the action runs on the server, keeping Supabase credentials out of the browser bundle and allowing progressive enhancement; the `'use client'` boundary is pushed to the leaf component only, so `page.tsx` remains a Server Component.
+
+- **Add `SocialDock` component and company logos** — Created `src/components/SocialDock.tsx` as a `'use client'` Framer Motion component that renders an animated row of social/profile icon links (GitHub, LinkedIn, etc.) with hover-lift transitions. Added six company logo PNGs (`blueprint.png`, `braingu.png`, `jpmc.png`, `nasa.png`, `sma.png`, `waitr.png`) to `public/logos/` for use in the Experience timeline.
+  *Why:* Static icon links require only a thin client component for animation; placing logo assets in `public/logos/` makes them directly serveable by Next.js without any image-import wiring and available to `<Image>` with a simple path string.
+
+### Changed
+- **Extract `ExperienceTimeline` from `Experience.tsx` into its own client component** — Moved all timeline rendering JSX (path line, node dots, header rows, description bullets, skill badges) out of the async `Experience` Server Component into a new `src/components/ExperienceTimeline.tsx` `'use client'` component. `Experience.tsx` now fetches data and delegates rendering to `<ExperienceTimeline experiences={…} />`. Also exported `ExperienceRow` type from `ExperienceTimeline.tsx` to keep the type co-located with the component that uses it.
+  *Why:* Separating the data-fetch layer (`Experience.tsx` — Server Component) from the render layer (`ExperienceTimeline.tsx` — Client Component) is the canonical App Router composition pattern; it allows the Supabase query to run server-side while the client component can later add interactive features (expand/collapse, scroll animations) without forcing the entire section into the client bundle.
+
+- **Replace Hero CTA buttons with `SocialDock`** — Removed the copy-email (`Copy Email` + `useState` clipboard) and Download CV buttons from `Hero.tsx` along with their `useState`, `Copy`, `Check`, `Download`, and `Button` imports. Imported `SocialDock` in their place, wrapped in the existing Framer Motion `item` variant for consistent stagger entry. Updated the `<h1>` text from `"Hi, I'm Chad Baker"` to `"Chad Baker"`.
+  *Why:* Removing the clipboard `useState` call eliminates the last piece of local state in `Hero.tsx`; the component still requires `'use client'` for Framer Motion but is now leaner — social links are a better persistent CTA than a one-time copy action, and the refactor keeps the `SocialDock` concern isolated in its own file.
+
+- **Refine skill list in `About.tsx`** — Trimmed the Frontend badge list (`'React' → 'React.js'`, removed `'Framer Motion'`), Backend list (removed `'Auth (SSR)'`), and added `'Claude Code'` to the Tools list.
+  *Why:* Skill badge data is co-located as a typed `as const` array in `About.tsx`; updating it directly (no DB round-trip) is appropriate for static content and keeps the component self-contained until a CMS is wired up.
+
 ## [Unreleased] – 2026-02-26
 
 ### Added

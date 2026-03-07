@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { motion, type Variants } from 'framer-motion'
 import TechWheel from '@/components/TechWheel'
 import SocialDock from '@/components/SocialDock'
@@ -20,14 +21,6 @@ export default function Hero() {
       id="hero"
       className="relative flex min-h-[calc(100vh-4rem)] items-center justify-center overflow-hidden bg-background px-6 py-32"
     >
-      {/* Ambient primary glow */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 flex items-center justify-center"
-      >
-        <div className="h-[500px] w-[800px] rounded-full bg-primary/8 blur-[160px]" />
-      </div>
-
       {/* Foreground content */}
       <motion.div
         variants={container}
@@ -36,18 +29,26 @@ export default function Hero() {
         className="relative z-10 flex max-w-3xl flex-col items-center gap-6 text-center"
       >
         {/* Tech stack wheel */}
+        {/* <motion.div variants={item}>
+          <TechWheel />1
+        </motion.div> */}
+
+        {/* Avatar */}
         <motion.div variants={item}>
-          <TechWheel />
+          <div className="relative h-56 w-56 overflow-hidden rounded-3xl">
+            <Image
+              src="/avatar.jpeg"
+              alt="Chad Baker"
+              fill
+              sizes="224px"
+              className="object-cover object-top"
+              priority
+            />
+          </div>
         </motion.div>
 
         {/* Headline */}
         <motion.div variants={item} className="relative">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 hidden items-center justify-center md:flex"
-          >
-            <div className="h-24 w-[480px] rounded-full bg-accent/20 blur-[120px]" />
-          </div>
           <h1 className="relative text-5xl font-extrabold tracking-tighter md:text-7xl">
             <span className="inline-block bg-gradient-to-br from-foreground via-foreground to-accent bg-clip-text text-transparent">
               Chad Baker

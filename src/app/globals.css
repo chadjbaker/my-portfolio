@@ -47,96 +47,98 @@
   --radius-4xl: calc(var(--radius) + 16px);
 }
 
-/* ─────────────────────────────────────────────────────────────────────────
-   Brand palette — Huemint #palette=2b3c49-f3c141-e9eae1-768e8e
-   All Shadcn semantic tokens are remapped here so that utility classes like
-   bg-background, text-foreground, bg-primary, and text-muted-foreground
-   resolve to the brand colors throughout the entire app.
-   ───────────────────────────────────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════════════════
+   HUEMINT PALETTE — paste your 4 hex colors here to retheme the entire site.
+   Generate at https://huemint.com/website-1/
+   ═══════════════════════════════════════════════════════════════════════════
+   Roles:
+     --brand-bg     darkest  → page background
+     --brand-fg     lightest → body text
+     --brand-accent vibrant  → buttons, links, highlights
+     --brand-muted  mid-tone → secondary text, borders
+   ═══════════════════════════════════════════════════════════════════════════ */
 :root {
+  --brand-bg:     #232428;
+  --brand-fg:     #c5c1b1;
+  --brand-accent: #d03536;
+  --brand-muted:  #4c7499;
+
+  /* ── Derived tokens — no need to edit below ────────────────────────────── */
   --radius: 0.625rem;
 
-  /* Core surfaces */
-  --background:             oklch(0.31 0.040 228);   /* #2b3c49 — dark blue-gray  */
-  --foreground:             oklch(0.93 0.012 100);   /* #e9eae1 — off-white cream */
+  --background:             var(--brand-bg);
+  --foreground:             var(--brand-fg);
 
-  /* Card / popover (slightly elevated surface) */
-  --card:                   oklch(0.34 0.038 228);
-  --card-foreground:        oklch(0.93 0.012 100);
-  --popover:                oklch(0.34 0.038 228);
-  --popover-foreground:     oklch(0.93 0.012 100);
+  --card:                   oklch(from var(--brand-bg) calc(l + 0.03) c h);
+  --card-foreground:        var(--brand-fg);
+  --popover:                oklch(from var(--brand-bg) calc(l + 0.03) c h);
+  --popover-foreground:     var(--brand-fg);
 
-  /* Primary action — golden yellow */
-  --primary:                oklch(0.82 0.165 82);    /* #f3c141 */
-  --primary-foreground:     oklch(0.31 0.040 228);   /* dark text on gold buttons */
+  --primary:                var(--brand-accent);
+  --primary-foreground:     var(--brand-bg);
 
-  /* Secondary / muted surfaces */
-  --secondary:              oklch(0.37 0.038 228);
-  --secondary-foreground:   oklch(0.93 0.012 100);
-  --muted:                  oklch(0.33 0.035 228);
-  --muted-foreground:       oklch(0.58 0.040 192);   /* #768e8e — teal-gray */
+  --secondary:              oklch(from var(--brand-bg) calc(l + 0.06) c h);
+  --secondary-foreground:   var(--brand-fg);
+  --muted:                  oklch(from var(--brand-bg) calc(l + 0.02) c h);
+  --muted-foreground:       var(--brand-muted);
 
-  /* Accent (same as primary for this palette) */
-  --accent:                 oklch(0.82 0.165 82);
-  --accent-foreground:      oklch(0.31 0.040 228);
+  --accent:                 var(--brand-accent);
+  --accent-foreground:      var(--brand-bg);
 
-  /* Utility */
   --destructive:            oklch(0.704 0.191 22.216);
-  --border:                 oklch(0.58 0.040 192 / 18%);
-  --input:                  oklch(0.58 0.040 192 / 24%);
-  --ring:                   oklch(0.82 0.165 82 / 50%);
+  --border:                 oklch(from var(--brand-muted) l c h / 18%);
+  --input:                  oklch(from var(--brand-muted) l c h / 24%);
+  --ring:                   oklch(from var(--brand-accent) l c h / 50%);
 
-  /* Charts */
-  --chart-1:                oklch(0.82 0.165 82);
-  --chart-2:                oklch(0.58 0.040 192);
-  --chart-3:                oklch(0.93 0.012 100);
+  --chart-1:                var(--brand-accent);
+  --chart-2:                var(--brand-muted);
+  --chart-3:                var(--brand-fg);
   --chart-4:                oklch(0.627 0.265 303.9);
   --chart-5:                oklch(0.645 0.246 16.445);
 
-  /* Sidebar */
-  --sidebar:                oklch(0.34 0.038 228);
-  --sidebar-foreground:     oklch(0.93 0.012 100);
-  --sidebar-primary:        oklch(0.82 0.165 82);
-  --sidebar-primary-foreground: oklch(0.31 0.040 228);
-  --sidebar-accent:         oklch(0.37 0.038 228);
-  --sidebar-accent-foreground: oklch(0.93 0.012 100);
-  --sidebar-border:         oklch(0.58 0.040 192 / 18%);
-  --sidebar-ring:           oklch(0.82 0.165 82 / 50%);
+  --sidebar:                oklch(from var(--brand-bg) calc(l + 0.03) c h);
+  --sidebar-foreground:     var(--brand-fg);
+  --sidebar-primary:        var(--brand-accent);
+  --sidebar-primary-foreground: var(--brand-bg);
+  --sidebar-accent:         oklch(from var(--brand-bg) calc(l + 0.06) c h);
+  --sidebar-accent-foreground: var(--brand-fg);
+  --sidebar-border:         oklch(from var(--brand-muted) l c h / 18%);
+  --sidebar-ring:           oklch(from var(--brand-accent) l c h / 50%);
 }
 
 /* Mirror :root — portfolio uses a single permanent dark theme */
 .dark {
-  --background:             oklch(0.31 0.040 228);
-  --foreground:             oklch(0.93 0.012 100);
-  --card:                   oklch(0.34 0.038 228);
-  --card-foreground:        oklch(0.93 0.012 100);
-  --popover:                oklch(0.34 0.038 228);
-  --popover-foreground:     oklch(0.93 0.012 100);
-  --primary:                oklch(0.82 0.165 82);
-  --primary-foreground:     oklch(0.31 0.040 228);
-  --secondary:              oklch(0.37 0.038 228);
-  --secondary-foreground:   oklch(0.93 0.012 100);
-  --muted:                  oklch(0.33 0.035 228);
-  --muted-foreground:       oklch(0.58 0.040 192);
-  --accent:                 oklch(0.82 0.165 82);
-  --accent-foreground:      oklch(0.31 0.040 228);
+  --background:             var(--brand-bg);
+  --foreground:             var(--brand-fg);
+  --card:                   oklch(from var(--brand-bg) calc(l + 0.03) c h);
+  --card-foreground:        var(--brand-fg);
+  --popover:                oklch(from var(--brand-bg) calc(l + 0.03) c h);
+  --popover-foreground:     var(--brand-fg);
+  --primary:                var(--brand-accent);
+  --primary-foreground:     var(--brand-bg);
+  --secondary:              oklch(from var(--brand-bg) calc(l + 0.06) c h);
+  --secondary-foreground:   var(--brand-fg);
+  --muted:                  oklch(from var(--brand-bg) calc(l + 0.02) c h);
+  --muted-foreground:       var(--brand-muted);
+  --accent:                 var(--brand-accent);
+  --accent-foreground:      var(--brand-bg);
   --destructive:            oklch(0.704 0.191 22.216);
-  --border:                 oklch(0.58 0.040 192 / 18%);
-  --input:                  oklch(0.58 0.040 192 / 24%);
-  --ring:                   oklch(0.82 0.165 82 / 50%);
-  --chart-1:                oklch(0.82 0.165 82);
-  --chart-2:                oklch(0.58 0.040 192);
-  --chart-3:                oklch(0.93 0.012 100);
+  --border:                 oklch(from var(--brand-muted) l c h / 18%);
+  --input:                  oklch(from var(--brand-muted) l c h / 24%);
+  --ring:                   oklch(from var(--brand-accent) l c h / 50%);
+  --chart-1:                var(--brand-accent);
+  --chart-2:                var(--brand-muted);
+  --chart-3:                var(--brand-fg);
   --chart-4:                oklch(0.627 0.265 303.9);
   --chart-5:                oklch(0.645 0.246 16.445);
-  --sidebar:                oklch(0.34 0.038 228);
-  --sidebar-foreground:     oklch(0.93 0.012 100);
-  --sidebar-primary:        oklch(0.82 0.165 82);
-  --sidebar-primary-foreground: oklch(0.31 0.040 228);
-  --sidebar-accent:         oklch(0.37 0.038 228);
-  --sidebar-accent-foreground: oklch(0.93 0.012 100);
-  --sidebar-border:         oklch(0.58 0.040 192 / 18%);
-  --sidebar-ring:           oklch(0.82 0.165 82 / 50%);
+  --sidebar:                oklch(from var(--brand-bg) calc(l + 0.03) c h);
+  --sidebar-foreground:     var(--brand-fg);
+  --sidebar-primary:        var(--brand-accent);
+  --sidebar-primary-foreground: var(--brand-bg);
+  --sidebar-accent:         oklch(from var(--brand-bg) calc(l + 0.06) c h);
+  --sidebar-accent-foreground: var(--brand-fg);
+  --sidebar-border:         oklch(from var(--brand-muted) l c h / 18%);
+  --sidebar-ring:           oklch(from var(--brand-accent) l c h / 50%);
 }
 
 @layer base {

@@ -66,60 +66,37 @@ export function ExperienceTimeline({ experiences }: { experiences: ExperienceRow
         {experiences.map((exp) => (
           <div key={exp.id} className="flex flex-col items-center gap-3">
 
-            {/* Circle + glow wrapper */}
-            <div className="relative z-10">
-              {/* Accent glow halo */}
-              <motion.div
-                className="pointer-events-none absolute -inset-5 rounded-full bg-accent/20 blur-2xl"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={vp}
-                transition={{ duration: 0.45 }}
-              />
-
-              {/*
-                Logo circle:
-                  - bg-foreground/10 is the Tailwind fallback when logo_bg_color is absent.
-                  - When logo_bg_color is present (e.g. "#003087") the inline style
-                    overrides the class, filling the letter-box areas with the brand colour.
-                  - object-contain keeps the logo proportional inside the circle.
-              */}
-              <motion.div
-                className="relative h-28 w-28 overflow-hidden rounded-full border border-foreground/10 bg-foreground/10"
-                style={{
-                  backgroundColor:
-                    exp.logo_bg_color ??
-                    (WHITE_BG_COMPANIES.has(exp.company_name) ? '#ffffff' : undefined),
-                }}
-                initial={{ scale: 1 }}
-                whileInView={{ scale: 1.08 }}
-                viewport={vp}
-                transition={{ type: 'spring', stiffness: 200, damping: 18 }}
-              >
-                {exp.logo_url ? (
-                  <Image
-                    src={exp.logo_url}
-                    alt={`${exp.company_name} logo`}
-                    fill
-                    sizes="112px"
-                    className={
-                      exp.logo_object_fit === 'cover'
-                        ? 'object-cover object-center'
-                        : 'object-contain object-center'
-                    }
-                    style={
-                      exp.logo_scale && exp.logo_scale !== 1
-                        ? { transform: `scale(${exp.logo_scale})` }
-                        : undefined
-                    }
-                  />
-                ) : (
-                  <span className="flex h-full w-full items-center justify-center text-2xl font-bold text-foreground">
-                    {exp.company_name.charAt(0)}
-                  </span>
-                )}
-              </motion.div>
-            </div>
+            {/* Logo */}
+            <motion.div
+              className="relative z-10 h-28 w-28 overflow-hidden rounded-full bg-white"
+              initial={{ scale: 1 }}
+              whileInView={{ scale: 1.08 }}
+              viewport={vp}
+              transition={{ type: 'spring', stiffness: 200, damping: 18 }}
+            >
+              {exp.logo_url ? (
+                <Image
+                  src={exp.logo_url}
+                  alt={`${exp.company_name} logo`}
+                  fill
+                  sizes="112px"
+                  className={
+                    exp.logo_object_fit === 'cover'
+                      ? 'object-cover object-center'
+                      : 'object-contain object-center'
+                  }
+                  style={
+                    exp.logo_scale && exp.logo_scale !== 1
+                      ? { transform: `scale(${exp.logo_scale})` }
+                      : undefined
+                  }
+                />
+              ) : (
+                <span className="flex h-full w-full items-center justify-center text-2xl font-bold text-foreground">
+                  {exp.company_name.charAt(0)}
+                </span>
+              )}
+            </motion.div>
 
             {/* Company name + year range — centred below circle */}
             <motion.div

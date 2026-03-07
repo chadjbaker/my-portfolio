@@ -30,17 +30,25 @@ export async function submitContact(
   }
 
   // ── insert into Supabase ──────────────────────────────────────────────────
-  const supabase = await createClient()
+  try {
+    const supabase = await createClient()
 
-  const { error } = await supabase
-    .from('contact_messages')
-    .insert({ name, email, message })
+    const { error } = await supabase
+      .from('contact_messages')
+      .insert({ name, email, message })
 
-  if (error) {
-    console.error('Contact insert error:', error.message)
+    if (error) {
+      console.error('Contact insert error:', error.code, error.message)
+      return {
+        success: false,
+        message: `DB error: ${error.message}`,
+      }
+    }
+  } catch (err) {
+    console.error('Contact action threw:', err)
     return {
       success: false,
-      message: 'Something went wrong. Please try again later.',
+      message: `Unexpected error: ${err instanceof Error ? err.message : String(err)}`,
     }
   }
 

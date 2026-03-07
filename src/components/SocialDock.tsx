@@ -4,10 +4,10 @@ import { motion } from 'framer-motion'
 
 // ─── link config — update hrefs here ──────────────────────────────────────
 const SOCIAL_LINKS = [
-  { label: 'X (Twitter)', href: '#', icon: XIcon },
-  { label: 'YouTube',     href: '#', icon: YouTubeIcon },
-  { label: 'LinkedIn',    href: '#', icon: LinkedInIcon },
-  { label: 'GitHub',      href: '#', icon: GitHubIcon },
+  { label: 'X (Twitter)', href: 'https://x.com/thechadstack', icon: XIcon },
+  { label: 'YouTube',     href: 'https://youtube.com/@thechadstack', icon: YouTubeIcon },
+  { label: 'LinkedIn',    href: 'https://linkedin.com/in/bakerjchad', icon: LinkedInIcon },
+  { label: 'GitHub',      href: 'https://github.com/chadjbaker', icon: GitHubIcon },
   { label: 'Instagram',   href: '#', icon: InstagramIcon },
 ] as const
 
