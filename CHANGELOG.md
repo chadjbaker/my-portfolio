@@ -3,6 +3,29 @@
 All notable changes to this project will be documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased] – 2026-03-07
+
+### Added
+- **Add profile avatar to Hero section** — Added `public/avatar.jpeg` and an `<Image>` element inside `Hero.tsx` (above the headline, within the Framer Motion stagger sequence) rendered as a `rounded-3xl` square with `object-cover object-top` to frame the head. Uses `priority` to eliminate layout shift on the LCP image.
+  *Why:* The avatar is a static asset in `public/`, served directly by Next.js with automatic optimisation (`srcset`, WebP); placing it inside the existing `motion.div variants={item}` keeps it in the stagger animation without adding a new motion wrapper.
+
+- **Add `PALETTES.md` palette history tracker** — Created a root-level markdown file that records every Huemint palette used in the project (active and archived) with ready-to-paste CSS snippets and source URLs.
+  *Why:* Having a single file that maps palette names to the four `--brand-*` hex values makes theme swaps a copy-paste operation and provides an instant rollback path without searching through git history.
+
+### Changed
+- **Refactor `globals.css` to a 4-variable Huemint palette system** — Replaced ~80 hard-coded `oklch()` values with four `--brand-bg`, `--brand-fg`, `--brand-accent`, `--brand-muted` hex variables. All Shadcn semantic tokens (`--card`, `--secondary`, `--muted`, `--border`, `--ring`, etc.) are now derived automatically using CSS relative color syntax (`oklch(from var(--brand-bg) calc(l + 0.03) c h)`).
+  *Why:* CSS relative color syntax derives surface variants, alpha borders, and ring colours directly from the four brand hex values at the browser level — no build-time OKLCH conversion needed — so swapping a Huemint palette is a single 4-line edit in `globals.css`.
+
+- **Apply new charcoal / red / steel-blue palette** — Updated the four `--brand-*` variables to `#232428` (bg), `#c5c1b1` (fg), `#d03536` (accent), `#4c7499` (muted), sourced from Huemint `brand-3/#palette=232428-c5c1b1-d03536-4c7499`.
+  *Why:* The new palette exercises the derived-token system end-to-end, confirming that all Shadcn components, section backgrounds, and text colours update from just four hex values.
+
+- **Remove circle borders and glow halos from Experience logos** — Stripped `border border-foreground/10` and the `bg-accent/20 blur-2xl` glow `<motion.div>` from `ExperienceTimeline.tsx`. Logo containers are now plain `rounded-full bg-white` circles without visible outlines or backdrop effects.
+  *Why:* A clean white circle with no border or glow keeps the logo row visually minimal and lets the company logos stand on their own without competing decorative layers.
+
+### Fixed
+- **Remove broken ambient glow divs from Hero** — Deleted the `bg-primary/8 blur-[160px]` ambient glow and the `bg-accent/20 blur-[120px]` headline glow from `Hero.tsx`. The Tailwind v4 opacity modifier (`/8`) was not resolving correctly against CSS custom-property colours, rendering both glows as solid-coloured ovals instead of soft halos.
+  *Why:* Tailwind v4's `bg-<token>/<alpha>` shorthand requires the underlying CSS variable to be in a format that supports alpha injection; when it falls back to an opaque value the blur filter applies to a fully saturated shape, producing the visual artifact. Removing the glows eliminates the issue without affecting layout.
+
 ## [Unreleased] – 2026-03-06
 
 ### Added
