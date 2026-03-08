@@ -3,6 +3,19 @@
 All notable changes to this project will be documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased] – 2026-03-08
+
+### Added
+- **Email field validation with red-border error state in `Contact.tsx`** — When the server action returns an email error, the `<input type="email">` now conditionally applies `border-destructive focus:border-destructive` in addition to the existing error message rendered below the field by the `Field` wrapper. Errors only appear after a submit attempt (not while typing) via `useActionState`; they clear on a successful resubmission.
+  *Why:* The error border is a single conditional class appended to the shared `inputBase` string — no new state, no extra component, no deviation from the existing `useActionState` + Server Action pattern already established for the contact form.
+
+### Changed
+- **Upgrade font system: Inter / Space Grotesk / JetBrains Mono** — Replaced `Geist` and `Geist_Mono` in `src/app/layout.tsx` with three `next/font/google` imports: `Inter` (body), `Space_Grotesk` (headings), and `JetBrains_Mono` (code/mono). Each exposes a CSS variable (`--font-inter`, `--font-space-grotesk`, `--font-jetbrains-mono`) on `<body>` via `className`. Added `--font-heading` to the `@theme inline` block in `globals.css` as a Tailwind theme token, and added `@layer base` rules that apply the fonts directly — `body { font-family: var(--font-inter) }`, `h1–h4 { font-family: var(--font-space-grotesk); letter-spacing: -0.02em; line-height: 1.15 }`, `code/pre { font-family: var(--font-jetbrains-mono) }`. Previous font names are preserved in a comment for easy revert.
+  *Why:* Using `next/font/google` with the `variable` option is the recommended App Router pattern for self-hosting Google Fonts — it eliminates the external font request, injects the `@font-face` at build time, and exposes the font stack as a CSS custom property that can be consumed anywhere in the cascade without hardcoding font names.
+
+- **Add Deep Purple palette to `PALETTES.md`** — Documented the Huemint `gradient-4/#palette=120120-2c086d-5830d2-7b22fc` palette as an archived entry, including a note that all four source colours are dark/vivid purples and that `#e8e0ff` (light lavender) is a suggested `--brand-fg` substitute for readability.
+  *Why:* `PALETTES.md` is the single source of truth for palette history; recording the palette even when reverting preserves the colour reference and swap instructions for future use without requiring a git-log search.
+
 ## [Unreleased] – 2026-03-07
 
 ### Added
@@ -99,9 +112,6 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **Add Hero section with TechWheel animation and Shadcn UI components** — Created `src/components/Hero.tsx` as a full-viewport dark hero section (`bg-slate-950`) with a violet ambient glow, Framer Motion staggered entry animation (Badge → headline → sub-copy → buttons), a copy-to-clipboard email button, and a Download CV button. Created `src/components/TechWheel.tsx` as a rotating semi-circle arch of four brand SVG icons (Next.js, Supabase, Vercel, Tailwind) with a proximity-based spotlight effect, glassmorphism icon wrappers (`bg-white/10 backdrop-blur-sm rounded-full`), and hover-to-pause. Installed `framer-motion`, Shadcn `badge`, and Shadcn `button` components. Replaced the `#hero` placeholder in `page.tsx` with `<Hero />`.
   *Why:* `Hero.tsx` and `TechWheel.tsx` are `'use client'` components (required for clipboard API, `useState`, and Framer Motion's `useMotionValue`/`useTransform` hooks), while `page.tsx` remains a Server Component that simply imports them — matching the App Router pattern of keeping interactivity at the leaf level. Shadcn `badge` and `button` are added via the CLI to `src/components/ui/`, consistent with the project's Shadcn component path convention.
 
-## [Unreleased] – 2026-02-23
-
-### Added
 - **Add base layout, page sections, and project scaffolding** — Replaced the Next.js default page with a fully sectioned portfolio layout (Hero, About, Experience, Projects, Contact placeholders). Added a `Header` component wired into `RootLayout` with a `pt-16` scroll offset, a `ProjectCard` component scaffold, and configured `next.config.ts` with a Supabase image remote pattern. Also added smooth-scroll behaviour to `globals.css`, updated `CLAUDE.md` with session-start instructions, and added `.claude/` project commands.
   *Why:* Structuring the landing page as discrete named sections (Hero, About, Experience, Projects, Contact) maps directly to the App Router's nested layout model, making it straightforward to later promote each section into its own Server Component that fetches data from Supabase independently.
 

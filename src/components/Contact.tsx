@@ -152,7 +152,7 @@ export default function Contact() {
                   placeholder="jane@example.com"
                   autoComplete="email"
                   disabled={isPending}
-                  className={inputBase}
+                  className={`${inputBase} ${fieldErrors.email ? 'border-destructive focus:border-destructive' : ''}`}
                 />
               </Field>
 
